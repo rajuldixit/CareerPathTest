@@ -14,13 +14,17 @@ const Dashboard = () => {
   [selectedCard, setSelectedCard] = useState<string>(CARD_KEYS.QUEST),
   handleCardClick = (cardId: string) => {
     setSelectedCard(cardId)
-  }
+  };
+  let isRan = false
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     setUsername(params.get('user') || '')
-
-    dispatch(fetchUser(username))
+    if(username  && !isRan) {
+      dispatch(fetchUser(username))
+    }
+    isRan = true
+    return
   }, [])
 
   return (
