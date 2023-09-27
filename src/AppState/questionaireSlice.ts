@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { getApi } from "../DataService/API"
 import axios from "axios"
-import { url } from "inspector"
 
 const questionsEndpoint = 'questions?user='
 const { REACT_APP_API_BASEURL } = process.env
@@ -24,9 +22,8 @@ const initialState: InitialState = {
 }
 
 export const fetchQuestions = createAsyncThunk(questionsEndpoint, (username: string) => {
-  // return getApi(`${questionsEndpoint}${username}`)  
   return axios.get(`${REACT_APP_API_BASEURL}/${questionsEndpoint}${username}`)
-  .then(response => {console.log(response.data); return response.data})
+  .then(response => response.data)
   .catch(error => error) 
 })
 
@@ -42,7 +39,6 @@ const questionaireSlice = createSlice({
       builder.addCase(
         fetchQuestions.fulfilled,
         (state, action: PayloadAction<any>) => {
-          console.log(action)
           state.loading = false
           state.questions = action.payload?.questions
           state.error = ''

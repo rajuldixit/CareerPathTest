@@ -1,14 +1,11 @@
 import { Stack, Box, Typography, Button } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ResultAckMessage } from '../utils/constants'
 import moment from 'moment'
 
 const Result = (props: {submissionDate: string}) => {
   const { submissionDate } = props
 
-  useEffect(() => {
-    console.log(submissionDate)
-  }, [submissionDate])
   return (
     <Stack sx={Wrap}>
       <Box sx={ImageWrap}>

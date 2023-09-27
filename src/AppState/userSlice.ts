@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getApi } from "../DataService/API"
 import axios from "axios"
 
 const userDetailsEndpoint = 'submissions?user='
@@ -18,9 +17,8 @@ const initialState: InitialUserState = {
 }
 
 export const fetchUser = createAsyncThunk(userDetailsEndpoint, (username: string) => {
-    // return getApi(`${userDetailsEndpoint}${username}`)  
     return axios.get(`${REACT_APP_API_BASEURL}/${userDetailsEndpoint}${username}`)
-    .then(response => {console.log(response.data); return response.data})
+    .then(response => response.data)
     .catch(error => error)  
 })
 

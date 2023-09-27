@@ -28,7 +28,7 @@ const initialState: InitialAnswersState = {
 
 export const submitAnswers = createAsyncThunk(answerSubmitEndpoint, (params: {username: string, answers: Answer[]}) => {
     return axios.post(`${REACT_APP_API_BASEURL}/${answerSubmitEndpoint}${params.username}`, {answers: params.answers})
-    .then(response => {console.log(response.data); return response.data})
+    .then(response => response.data)
     .catch(error => error) 
   })
 
@@ -43,7 +43,6 @@ const answersSlice = createSlice({
         builder.addCase(
           submitAnswers.fulfilled,
           (state, action: PayloadAction<SubmissionResponse>) => {
-            console.log(action.payload)
             state.loading = false
             state.submitResponse = action.payload
             state.error = ''
