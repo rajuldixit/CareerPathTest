@@ -7,13 +7,13 @@ const { REACT_APP_API_BASEURL } = process.env
 
 type InitialUserState = {
     loading: boolean
-    user: string,
+    userCareerPathResult: {ok: boolean, submissionDate: string, user: string},
     error: string
 }
 
 const initialState: InitialUserState = {
     loading: false,
-    user: '',
+    userCareerPathResult: {ok: false, submissionDate: '', user: 'string'},
     error: ''
 }
 
@@ -25,7 +25,7 @@ export const fetchUser = createAsyncThunk(userDetailsEndpoint, (username: string
 })
 
 const userSlice = createSlice({
-    name: 'question',
+    name: 'user',
     initialState,
     reducers: {},
     extraReducers: builder => {
@@ -36,13 +36,13 @@ const userSlice = createSlice({
           fetchUser.fulfilled,
           (state, action: PayloadAction<any>) => {
             state.loading = false
-            state.user = action.payload
+            state.userCareerPathResult = action.payload
             state.error = ''
           }
         )
         builder.addCase(fetchUser.rejected, (state, action) => {
           state.loading = false
-          state.user = ''
+          state.userCareerPathResult = {ok: false, submissionDate: '', user: 'string'}
           state.error = action.error.message || 'Something went wrong'
         })
       }

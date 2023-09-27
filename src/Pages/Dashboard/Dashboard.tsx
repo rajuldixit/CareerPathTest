@@ -8,7 +8,7 @@ import CareerInfoCards from '../../Components/InfoCards'
 import { CARD_KEYS } from '../../utils/constants'
 
 const Dashboard = () => {
-  const completionDate = useAppSelector(state => state.user.user),
+  const careerPathResult = useAppSelector(state => state.user.userCareerPathResult),
   dispatch = useAppDispatch(),
   [username, setUsername] = useState(''),
   [selectedCard, setSelectedCard] = useState<string>(CARD_KEYS.QUEST),
@@ -33,7 +33,7 @@ const Dashboard = () => {
       <CareerInfoCards handleCardClick={ handleCardClick } />
       {
         selectedCard === CARD_KEYS.QUEST ? 
-          completionDate ? <Result completionDate={completionDate} /> : <Questionnaire  username={username} />
+          careerPathResult.ok ? <Result submissionDate={careerPathResult.submissionDate} /> : <Questionnaire  username={username} />
          : <></>
       }
       

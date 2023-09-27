@@ -32,3 +32,8 @@ export const QuestionnaireInfoText = {
 }
 
 export const ResultAckMessage = 'Well done on completing your test. You can view the results now.'
+
+export enum ScaleUnits {
+    STRONGLY_DISAGREE = 'Strongly disagree',
+    STRONGLY_AGREE = 'Strongly agree'
+}    

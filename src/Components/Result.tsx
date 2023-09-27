@@ -1,17 +1,21 @@
 import { Stack, Box, Typography, Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ResultAckMessage } from '../utils/constants'
+import moment from 'moment'
 
-const Result = (props: {completionDate: string}) => {
-  const { completionDate } = props
+const Result = (props: {submissionDate: string}) => {
+  const { submissionDate } = props
 
+  useEffect(() => {
+    console.log(submissionDate)
+  }, [submissionDate])
   return (
     <Stack sx={Wrap}>
       <Box sx={ImageWrap}>
         <img src={'https://fhc-frontend.onrender.com/assets/graduation.svg'} style={{borderRadius: '16px'}} alt='' />
       </Box>
       <Stack sx={TextWrap} spacing={2}>
-        <Typography variant='h6' fontWeight={'bold'} lineHeight={2}>Completed on {completionDate}</Typography>
+        <Typography variant='h6' fontWeight={'bold'} lineHeight={2}>Completed on {moment(submissionDate).format('Do MMM YYYY')}</Typography>
         <Typography variant='body1' lineHeight={2}>{ResultAckMessage}</Typography>
         <Button variant='contained' color='warning' sx={{width: '200px', marginBottom: '20px'}}>See your results</Button>
       </Stack>
@@ -23,8 +27,8 @@ const Wrap = {
   position: 'relative', 
   boxSizing: 'border-box', 
   borderRadius: '16px',
-  '-webkit-box-shadow': '1px 5px 5px 4px rgba(224,213,224,1)',
-  '-moz-box-shadow': '1px 5px 5px 4px rgba(224,213,224,1)',
+  WebkitBoxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
+  MozBoxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
   boxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
   paddingBottom: '20px',
   width: '80%',
