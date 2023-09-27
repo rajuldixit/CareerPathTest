@@ -6,6 +6,7 @@ import Questionnaire from '../../Components/Questionnaire'
 import HeroBanner from '../../Components/HeroBanner'
 import CareerInfoCards from '../../Components/InfoCards'
 import { CARD_KEYS } from '../../utils/constants'
+import { Typography } from '@mui/material'
 
 const Dashboard = () => {
   const careerPathResult = useAppSelector(state => state.user.userCareerPathResult),
@@ -35,6 +36,11 @@ const Dashboard = () => {
         selectedCard === CARD_KEYS.QUEST ? 
           careerPathResult.ok ? <Result submissionDate={careerPathResult.submissionDate} /> : <Questionnaire  username={username} />
          : <></>
+      }
+
+      {
+        selectedCard === CARD_KEYS.ADVICE ? <Typography variant='h4' textAlign={'center'}>'ADVICES'</Typography> : 
+        (selectedCard === CARD_KEYS.INSIGHT ? <Typography variant='h4' textAlign={'center'}>'INSIGHTS'</Typography> : '')
       }
       
     </>

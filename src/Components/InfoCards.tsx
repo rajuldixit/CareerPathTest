@@ -9,6 +9,7 @@ export type Card = {
     icon: string
 }
 
+const BorderColors = ['orange', 'purple', 'yellow']
 const CareerInfoCards = (props: { handleCardClick: (cardId: string) => void}) => {
   const [infoCards, setInfoCards] = useState<Array<Card>>(new Array()),
   {handleCardClick} = props;
@@ -29,7 +30,7 @@ const CareerInfoCards = (props: { handleCardClick: (cardId: string) => void}) =>
           {
             infoCards.map((card: Card, index: number) => {
               return <Box sx={BoxStyle} key={index} onClick={() => handleCardClick(card.id)}>
-                <Box sx={IconCircle}>
+                <Box sx={[{border: `2px solid ${BorderColors[index]}`},IconCircle]}>
                    <img src={card.icon} alt='icon' /> 
                 </Box>
                 <Typography variant='h6' sx={{position:'absolute', left: '40px', top: '30px', fontWeight: 'bold'}}>{card.title}</Typography>
@@ -44,7 +45,9 @@ const CareerInfoCards = (props: { handleCardClick: (cardId: string) => void}) =>
 }
 
 const BoxStyle = {
-    border: '2px solid grey',
+    WebkitBoxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
+    MozBoxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
+    boxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
     borderRadius: '16px',
     padding: '20px',
     boxSizing: 'border-box',
@@ -54,7 +57,6 @@ const BoxStyle = {
     cursor: 'pointer'
 };
 const IconCircle = {
-    border: '2px solid red',
     borderRadius: '50%',
     padding: '14px',
     display: 'flex',

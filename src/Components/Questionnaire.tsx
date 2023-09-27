@@ -19,23 +19,28 @@ const Questionnaire = (props: {username: string}) => {
   const dispatch = useAppDispatch(),
   questions = useAppSelector(state => state.question.questions),
   [answers, setAnswers] = useState<Answer[]>([]),
+  [showFinishButton, setShowFinishButton] = useState(false),
   [progress, setProgress] = useState(0),
   [selectedQuestionIdx, setSelectedQuestionIdx] = useState(0),
   { username } = props,
   handleBack = () => {
     setSelectedQuestionIdx(prev => prev-1)
+    selectedQuestionIdx === questions.length - 1 ? setShowFinishButton(true) : setShowFinishButton(false)
   },
   handleFinish = () => {
     dispatch(submitAnswers({username: username, answers: answers}))
   },
   handleOptionSelection = (option: string) => {
     setAnswers([...answers, {questionId: questions[selectedQuestionIdx].id, answer: parseInt(option)}])
-    
-    setTimeout(() => {
-      if(selectedQuestionIdx < questions.length) {
+    selectedQuestionIdx === questions.length - 1 ? setShowFinishButton(true) : setShowFinishButton(false)
+
+    if(selectedQuestionIdx < questions.length - 1) {
+      setTimeout(() => {
         setSelectedQuestionIdx(prev => prev+1)
-      }
-    }, 1000)
+      }, 1000)
+    } else if (selectedQuestionIdx === questions.length - 1) {
+      setProgress(100)
+    }
   };
   let isRan = false
 
@@ -48,33 +53,36 @@ const Questionnaire = (props: {username: string}) => {
   }, [username])
 
   useEffect(() => {
-    console.log(selectedQuestionIdx)
-    if(selectedQuestionIdx < questions.length) {
+    if(selectedQuestionIdx < questions.length ) {
       setProgress((selectedQuestionIdx/questions.length)*100)
-    }
+    } 
   }, [selectedQuestionIdx])
  
   return (
-    <Stack p={4} m={4} spacing={2} sx={{boxSizing: 'border-box'}}>
+    <Stack spacing={2} p={6} m={6} sx={{boxSizing: 'border-box'}}>
       <Typography variant='body1'>{QuestionnaireInfoText.first}</Typography> 
       <Typography variant='body1'>{QuestionnaireInfoText.second}</Typography> 
       {
-        (questions && questions.length > 0 ) ? <Box>
-          <Stack>
+        (questions && questions.length > 0 && selectedQuestionIdx < questions.length ) ? <Box>
+
+          <Stack sx={ContainerStyle}>
             <CustomProgressBar value={progress} />
-            <hr />
-            <Stack >
-            <Box sx={{display: 'flex', justifyContent: 'center'}}>
-              <Typography>Q{selectedQuestionIdx+1}/{questions.length}</Typography>
-              <Stack>
-                <Typography>In a job, I would be motivated by</Typography>
-                <Typography>{questions[selectedQuestionIdx].text}</Typography>
+            <hr style={{width: '100%'}}/>
+            <Box>
+              {(selectedQuestionIdx > 0 && selectedQuestionIdx < questions.length) && <Button variant='outlined' onClick={handleBack}>Back</Button>}
+            </Box>
+            <Stack sx={{marginTop: '8px', alignItems: 'center'}}>
+              
+            <Box sx={{display: 'flex', maxWidth: '700px', justifyContent: 'center'}}>
+              <Typography variant='h6' pr={1} color='orange'>Q{selectedQuestionIdx+1}/{questions.length}</Typography>
+              <Stack spacing={2}>
+                <Typography variant='subtitle1'>In a job, I would be motivated by</Typography>
+                <Typography variant='h5' fontWeight={'bold'}>{questions[selectedQuestionIdx]?.text}</Typography>
                 <CustomScale handleOptionSelection={handleOptionSelection} idx={selectedQuestionIdx} />
-                <Button onClick={handleFinish}>Finish</Button>
-                {selectedQuestionIdx === questions.length-1 && <Button onClick={handleFinish}>Finish</Button>}
-                <Box>
-                  {(selectedQuestionIdx > 0 && selectedQuestionIdx < questions.length) && <Button onClick={handleBack}>Back</Button>}
-                </Box>
+                {showFinishButton && 
+                  <Stack direction={'row'} justifyContent={'center'}><Button sx={{width: '200px'}} onClick={handleFinish} variant='contained' color="warning">Finish</Button></Stack>
+                }
+                
               </Stack>
             </Box>
             </Stack>
@@ -84,6 +92,15 @@ const Questionnaire = (props: {username: string}) => {
       } 
     </Stack>
   )
+}
+
+const ContainerStyle = {
+  WebkitBoxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
+  MozBoxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
+  boxShadow: '1px 5px 5px 4px rgba(224,213,224,1)',
+  padding: '5%',
+  borderRadius: '8px',
+  boxSizing: 'border-box'
 }
 
 export default Questionnaire

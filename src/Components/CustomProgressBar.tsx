@@ -5,7 +5,7 @@ const CustomProgressBar = (props: LinearProgressProps & { value: number }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.secondary">Your progress - {`${Math.round(
+        <Typography variant="h6" fontWeight={'bold'} color="text.secondary">Your progress - {`${Math.round(
             props.value,
         )}%`}</Typography>
       </Box>   
