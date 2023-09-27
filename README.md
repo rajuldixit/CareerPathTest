@@ -2,9 +2,13 @@
 
 ## This is a test for professionals to guide them for their suitable career
 
+### Technology used
+
+React Js is used for Frontend development
+
 ### Description
 
-Welcome onboard
+Welcome onboard to Career Path Test
 
 ### Instructions
 
@@ -33,3 +37,14 @@ Pretty Cool... Right !
 3. Moment: For Date formatting
 4. Material UI: For Styling
 5. axios: For API calls (get, post)
+
+
+### Project Folder Structure
+
+1. Pages (Home, Dashboard)
+2. Components (Reusable components like Custom scale, Custom progress bar, information cards etc)
+3. AppState (Store, hooks, Reducers)
+4. Utils (constants)
+
+
+### Thank you
