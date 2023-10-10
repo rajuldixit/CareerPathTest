@@ -6,7 +6,7 @@ const { REACT_APP_API_BASEURL } = process.env
 
 type Question = {
   id: string,
-  text: string
+  title: string
 }
 
 type InitialState = {

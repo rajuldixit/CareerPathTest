@@ -77,7 +77,7 @@ const Questionnaire = (props: {username: string}) => {
               <Typography variant='h6' pr={1} color='orange'>Q{selectedQuestionIdx+1}/{questions.length}</Typography>
               <Stack spacing={2}>
                 <Typography variant='subtitle1'>In a job, I would be motivated by</Typography>
-                <Typography variant='h5' fontWeight={'bold'}>{questions[selectedQuestionIdx]?.text}</Typography>
+                <Typography variant='h5' fontWeight={'bold'}>{questions[selectedQuestionIdx]?.title}</Typography>
                 <CustomScale handleOptionSelection={handleOptionSelection} idx={selectedQuestionIdx} />
                 {showFinishButton && 
                   <Stack direction={'row'} justifyContent={'center'}><Button sx={{width: '200px'}} onClick={handleFinish} variant='contained' color="warning">Finish</Button></Stack>
